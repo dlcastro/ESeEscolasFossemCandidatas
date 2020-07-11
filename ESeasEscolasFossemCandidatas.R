@@ -167,7 +167,7 @@ ENEM_WIDE %>%
             subtitle = "Disputa por vagas de Ampla Concorrência")+
     ylab("Nota ENEM/SISU") +
     labs(color = "Escola:",
-         caption = " Projeto: E se Escolas fossem pessoas concorrendo no SISU? \n Produzido por: Daniel Lopes de Castro (@euDLCastro | https://decastro.me | GitHub:dlcastro) \n Fonte: ENEM e SISU 2015 (INEP)")+
+         caption = " Projeto: E se Escolas fossem pessoas concorrendo no SISU? \n Autor: Daniel Lopes de Castro (@euDLCastro | https://decastro.me | GitHub:dlcastro) \n Fonte: ENEM e SISU 2015 (INEP) | Produzido em: Julho/2020")+
     theme(plot.title = element_text(hjust = 0.5, face = "bold"),
           plot.subtitle = element_text(hjust = 0.5),
           axis.title = element_text(face = "bold", size = 15),
@@ -204,7 +204,7 @@ ENEM_WIDE %>%
             subtitle = "Disputa por vagas de cotas Escola Pública sem discriminação de renda ou outra característica")+
     ylab("Nota ENEM/SISU") +
     labs(color = "Escola:",
-         caption = " Projeto: E se Escolas fossem pessoas concorrendo no SISU? \n Produzido por: Daniel Lopes de Castro (@euDLCastro | https://decastro.me | GitHub:dlcastro) \n Fonte: ENEM e SISU 2015 (INEP)")+
+         caption = " Projeto: E se Escolas fossem pessoas concorrendo no SISU? \n Autor: Daniel Lopes de Castro (@euDLCastro | https://decastro.me | GitHub:dlcastro) \n Fonte: ENEM e SISU 2015 (INEP) | Produzido em: Julho/2020")+
     theme(plot.title = element_text(hjust = 0.5, face = "bold"),
           plot.subtitle = element_text(hjust = 0.5),
           axis.title = element_text(face = "bold", size = 15),
@@ -241,7 +241,7 @@ ENEM_WIDE %>%
             subtitle = "Disputa por vagas de cotas Escola Pública com renda familiar bruta per capita igual ou inferior a 1,5 salário mínimo")+
     ylab("Nota ENEM/SISU") +
     labs(color = "Escola:",
-         caption = " Projeto: E se Escolas fossem pessoas concorrendo no SISU? \n Produzido por: Daniel Lopes de Castro (@euDLCastro | https://decastro.me | GitHub:dlcastro) \n Fonte: ENEM e SISU 2015 (INEP)")+
+         caption = " Projeto: E se Escolas fossem pessoas concorrendo no SISU? \n Autor: Daniel Lopes de Castro (@euDLCastro | https://decastro.me | GitHub:dlcastro) \n Fonte: ENEM e SISU 2015 (INEP) | Produzido em: Julho/2020")+
     theme(plot.title = element_text(hjust = 0.5, face = "bold"),
           plot.subtitle = element_text(hjust = 0.5),
           axis.title = element_text(face = "bold", size = 15),
