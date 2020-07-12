@@ -130,9 +130,12 @@ ENEM_WIDE<- CURSOS_SELECIONADOS %>%
 ###################################################################################################
 
 NOTAS_CORTE_AMPLA <- ENEM_WIDE %>%
-    filter(MODALIDADE=="Ampla Concorrência") %>%
-    group_by(CURSO) %>%
-    summarize(NOTA_CORTE= mean(NOTA_CORTE))
+    group_by(CURSO, MODALIDADE) %>%
+    summarize(NOTA_CORTE= mean(NOTA_CORTE)) %>%
+    mutate(NOME_MODALIDADE = case_when(MODALIDADE=="Ampla Concorrência" ~ "Ampla Concorrência",
+                                       MODALIDADE=="Candidatos que, independentemente da renda (art. 14, II, Portaria Normativa nº 18/2012), tenham cursado integralmente o ensino médio em escolas públicas (Lei nº 12.711/2012)." ~ "Cota Esc. Pública",
+                                       MODALIDADE=="Candidatos com renda familiar bruta per capita igual ou inferior a 1,5 salário mínimo que tenham cursado integralmente o ensino médio em escolas públicas (Lei nº 12.711/2012)." ~ "Cota Esc. Pública + Renda"))
+
 
 NOTAS_CORTE_COTAS_PUB <- ENEM_WIDE %>%
     filter(MODALIDADE=="Candidatos que, independentemente da renda (art. 14, II, Portaria Normativa nº 18/2012), tenham cursado integralmente o ensino médio em escolas públicas (Lei nº 12.711/2012).") %>%
@@ -149,24 +152,20 @@ NOTAS_CORTE_COTAS_RENDA <- ENEM_WIDE %>%
 
 ## TOP 30 - Todas as Escols
 ENEM_WIDE %>%
-    filter(MODALIDADE=="Ampla Concorrência") %>%
+    filter(MODALIDADE=="Ampla Concorrência" & TP_DEPENDENCIA!="Privada" ) %>%
     ggplot() +
     geom_jitter(aes(x=as.numeric(NIVEL_SOCIO), y=NOTA_30_MELHORES_ESCOLA, color = TP_DEPENDENCIA)) +
-    geom_hline(data = NOTAS_CORTE_AMPLA,aes(yintercept=NOTA_CORTE), color = "black", linetype="dashed", size =1)+
-    geom_smooth(aes(x=as.numeric(NIVEL_SOCIO), y=NOTA_30_MELHORES_ESCOLA),method = "lm", se = FALSE, color="black")+
-    geom_text(data = NOTAS_CORTE_AMPLA,aes( 0, NOTA_CORTE, label = "Nota de corte (Ampla conco.)", vjust = -0.4,hjust = -0.01 ), size = 3)+
-    geom_text(data = NOTAS_CORTE_AMPLA,aes( 0, NOTA_CORTE, label = "Não aprovados", vjust = 2,hjust = -0.01 ),fontface = "bold", size = 3)+
-    geom_text(data = NOTAS_CORTE_AMPLA,aes( 0, NOTA_CORTE, label = "Aprovados", vjust = -2,hjust = -0.01 ),fontface = "bold", size = 3)+
+    geom_hline(data = NOTAS_CORTE_AMPLA,aes(yintercept=NOTA_CORTE, linetype=NOME_MODALIDADE), color = "black", size =1)+
     scale_x_discrete(name ="Indicador socioeconômico",
                      limits=c("|Muito Baixo|","|Baixo|","|Médio Baixo|","|Médio|","|Médio Alto|","|Alto|","|Muito Alto|"))+
     facet_wrap(~CURSO, scales="free") +
     theme_bw()+
     ylim(400, 850)+
     guides(colour = guide_legend(override.aes = list(size=5))) +
-    ggtitle("Nota média no SISU dos 30 alunos mais bem classificados por Escola",
-            subtitle = "Disputa por vagas de Ampla Concorrência")+
+    ggtitle("Nota média no SISU dos 30 alunos mais bem pontuados por Escola (2015.1)")+
     ylab("Nota ENEM/SISU") +
     labs(color = "Escola:",
+         linetype = "Nota de corte:",
          caption = " Projeto: E se Escolas fossem pessoas concorrendo no SISU? \n Autor: Daniel Lopes de Castro (@euDLCastro | https://decastro.me | GitHub:dlcastro) \n Fonte: ENEM e SISU 2015 (INEP) | Produzido em: Julho/2020")+
     theme(plot.title = element_text(hjust = 0.5, face = "bold"),
           plot.subtitle = element_text(hjust = 0.5),
